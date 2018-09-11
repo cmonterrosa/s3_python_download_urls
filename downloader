@@ -9,9 +9,7 @@ from botocore.exceptions import ClientError
 
 def s3_get(bucket,file):
     client = boto3.client('s3')
-    resource = boto3.resource('s3',
-        aws_access_key_id='AKIAIOGAUN4GEYTK6LFA',
-        aws_secret_access_key= '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')
+    resource = boto3.resource('s3')
     my_bucket = resource.Bucket(bucket)
     print "=> Downloading: ", file 
     my_bucket.download_file(file, file)
