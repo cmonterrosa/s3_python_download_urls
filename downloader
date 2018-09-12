@@ -8,11 +8,14 @@ import time
 from botocore.exceptions import ClientError
 
 def s3_get(bucket,file):
-    client = boto3.client('s3')
-    resource = boto3.resource('s3')
-    my_bucket = resource.Bucket(bucket)
-    print "=> Downloading: ", file 
-    my_bucket.download_file(file, file)
+    try:
+        client = boto3.client('s3')
+        resource = boto3.resource('s3')
+        my_bucket = resource.Bucket(bucket)
+        print "=> Downloading: ", file 
+        my_bucket.download_file(file, file)
+    except ClientError as e:
+            print "Unexpected error: %s" % e
     return
     
 def main(x):
@@ -27,6 +30,7 @@ def main(x):
         
     print(threading.current_thread().getName(), 'Exiting')
         
+
 ## Main loop
 threads = []
 for x in sys.argv[1:]:
